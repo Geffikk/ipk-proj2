@@ -43,12 +43,12 @@ bool error_set_filter = true;
 void define_protocol(u_char* arg, const struct pcap_pkthdr* header, const u_char* packet);
 
 int main(int argc, char** argv) {	
-	char* DEVICE = NULL;                         /* initialize DEVICE */
-	pcap_if_t* interfaces, * temporary;          /* initialize INTERFACE */
-	char error_buffer[PCAP_ERRBUF_SIZE];         /* initialize BUFFER ERROR */
-	pcap_t* HANDLE;                              /* initialize HANDLE */
+	char* DEVICE = NULL;                        	/* initialize DEVICE */
+	pcap_if_t* interfaces, * temporary;         	/* initialize INTERFACE */
+	char error_buffer[PCAP_ERRBUF_SIZE];        	/* initialize BUFFER ERROR */
+	pcap_t* HANDLE;                             	/* initialize HANDLE */
 	char define_port[] = "ip", define_port2[4];	/* define base port -> (it can be changed by argument) */
-	bool port = false;                           /* initialize port flag -> (specific port) */
+	bool port = false;                          	/* initialize port flag -> (specific port) */
 	
 	if (strcmp(argv[1], "--help") == SUCCESS) {
 		printf("Packet Sniffer \n");
