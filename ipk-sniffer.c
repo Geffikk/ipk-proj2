@@ -44,7 +44,8 @@ bool error_set_filter = true;
 
 void define_protocol(u_char* arg, const struct pcap_pkthdr* header, const u_char* packet);
 
-int main(int argc, char** argv) {	
+int main(int argc, char** argv) {
+	
 	char* DEVICE = NULL;                       	/* initialize DEVICE */
 	pcap_if_t* interfaces, * temporary;        	/* initialize INTERFACE */
 	char error_buffer[PCAP_ERRBUF_SIZE];       	/* initialize BUFFER ERROR */
@@ -147,6 +148,7 @@ int main(int argc, char** argv) {
 }
 
 void print_time() {
+	
 	time_t rawtime;	/* initialize time */
 	struct tm* info;/* initialize time structure */
 	time(&rawtime);							/* return a time */
@@ -194,6 +196,7 @@ void define_protocol(u_char* arg, const struct pcap_pkthdr* header, const u_char
 }
 
 void print_hexadecimal(const u_char* info, int offset, int len) {
+	
 	int i;
 	int gap;
 	const u_char* ch;
@@ -235,6 +238,7 @@ void print_hexadecimal(const u_char* info, int offset, int len) {
 }
 
 void print_packet(const u_char* info, int len) {
+	
 	int line_len;
 	int current_line_len = len;
 	int offset = 0;
