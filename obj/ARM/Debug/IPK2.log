@@ -1,0 +1,20 @@
+﻿  Validating sources
+  Copying sources remotely to '127.0.0.1'
+  Validating architecture
+  Validating architecture
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Application Type\Linux\1.0\Linux.targets(188,5): warning : Current project architecture 'ARM' is incompatible with the remote system architecture 'x64' ('x64'). Please switch the project architecture to 'x64' in Configuration Manager.
+  Starting remote build
+  Compiling sources:
+  Linking objects
+C:\Users\Geffik\Desktop\pp\IPK2\obj\ARM\Debug\ipk-sniffer.o : error : In function `main':
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(18): error : undefined reference to `pcap_lookupdev'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(24): error : undefined reference to `pcap_lookupnet'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(29): error : undefined reference to `pcap_open_live'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(31): error : undefined reference to `pcap_geterr'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(34): error : undefined reference to `pcap_compile'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(35): error : undefined reference to `pcap_geterr'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(38): error : undefined reference to `pcap_setfilter'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(39): error : undefined reference to `pcap_geterr'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(44): error : undefined reference to `pcap_next'
+C:\Users\Geffik\Desktop\pp\IPK2\ipk-sniffer.c(48): error : undefined reference to `pcap_close'
+collect2 : error : ld returned 1 exit status

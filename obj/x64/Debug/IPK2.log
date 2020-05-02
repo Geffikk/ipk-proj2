@@ -1,0 +1,27 @@
+﻿  Validating sources
+  Copying sources remotely to '127.0.0.1'
+  Validating architecture
+  Validating architecture
+  Starting remote build
+  Compiling sources:
+  ipk-sniffer.c
+C:\IPK\IPK2\ipk-sniffer.c(56,17): warning : character constant too long for its type [enabled by default]
+C:\IPK\IPK2\ipk-sniffer.c(56,17): warning :   if (argv[1] == '--help') {
+C:\IPK\IPK2\ipk-sniffer.c(56,17): warning :                  ^
+C:\IPK\IPK2\ipk-sniffer.c(56,14): warning : comparison between pointer and integer [enabled by default]
+C:\IPK\IPK2\ipk-sniffer.c(56,14): warning :   if (argv[1] == '--help') {
+C:\IPK\IPK2\ipk-sniffer.c(56,14): warning :               ^
+C:\IPK\IPK2\ipk-sniffer.c(172,5): warning : conversion to ‘int’ from ‘size_t’ may alter its value [-Wconversion]
+C:\IPK\IPK2\ipk-sniffer.c(172,5): warning :      process_packet(packet, ip, size);   /* process tcp packet */
+C:\IPK\IPK2\ipk-sniffer.c(172,5): warning :      ^
+C:\IPK\IPK2\ipk-sniffer.c(179,5): warning : conversion to ‘int’ from ‘size_t’ may alter its value [-Wconversion]
+C:\IPK\IPK2\ipk-sniffer.c(179,5): warning :      process_packet(packet, ip, size);   /* process udp packet */
+C:\IPK\IPK2\ipk-sniffer.c(179,5): warning :      ^
+C:\IPK\IPK2\ipk-sniffer.c(160,17): warning : unused variable ‘temp’ [-Wunused-variable]
+C:\IPK\IPK2\ipk-sniffer.c(160,17): warning :   struct timeval temp = header->ts;  /* temporary */
+C:\IPK\IPK2\ipk-sniffer.c(160,17): warning :                  ^
+C:\IPK\IPK2\ipk-sniffer.c(196,6): warning : variable ‘gap’ set but not used [-Wunused-but-set-variable]
+C:\IPK\IPK2\ipk-sniffer.c(196,6): warning :   int gap;
+C:\IPK\IPK2\ipk-sniffer.c(196,6): warning :       ^
+  Linking objects
+  IPK2.vcxproj -> C:\IPK\IPK2\bin\x64\Debug\IPK2.out
