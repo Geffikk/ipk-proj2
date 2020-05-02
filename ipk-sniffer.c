@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
 	pcap_if_t* interfaces, * temporary;          /* initialize INTERFACE */
 	char error_buffer[PCAP_ERRBUF_SIZE];         /* initialize BUFFER ERROR */
 	pcap_t* HANDLE;	                             /* initialize HANDLE */
-	char define_port[] = "ip", define_port2[4];	 /* define base port -> (it can be changed by argument) */
+	char define_port[] = "ip", define_port2[4];	/* define base port -> (it can be changed by argument) */
 	bool port = false;                           /* initialize port flag -> (specific port) */
 	
 	if (argv[1] == '--help') {
