@@ -17,8 +17,5 @@ a tlačí informácie o danom pakete na štandartný výstup.
  - ipk-sniffer.c
  - Makefile
 
-### Neimplementované požadované vlastnosti
- - Nefunguju prepínače/argumenty --tcp/--udp 
-
 ### Implementácia extra vlastností
- - argument --help vypíše nápovedu k spusteniu/použitiu programu
+ - argument --help vypíše nápovedu k spusteniu a použitiu programu

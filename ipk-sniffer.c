@@ -31,6 +31,7 @@ bool process_udp_flag = false;
 #define ETHERNET_SIZE 14			/* ethernet header size */
 #define ETHERNET_ADDR_LEN 6			/* ethernet address size */
 #define FAIL -1
+#define SUCCESS 0
 
 /* ERROR HANDLE */
 #define EXIT_SUCCESS 0				/* EXIT program success */
@@ -49,7 +50,6 @@ int main(int argc, char** argv) {
 	pcap_if_t* interfaces, * temporary;					/* initialize INTERFACE */
 	char error_buffer[PCAP_ERRBUF_SIZE];				/* initialize BUFFER ERROR */
 	pcap_t* HANDLE;										/* initialize HANDLE */
-	int i;												/* counter for getopt arguments */
 	char define_port[] = "ip", define_port2[4];			/* define base port -> (it can be changed by argument) */
 	bool port = false;									/* initialize port flag -> (specific port) */
 	
@@ -62,32 +62,34 @@ int main(int argc, char** argv) {
 		exit(EXIT_SUCCESS);
 	}
 
-	/* parse arguments, set flags, load important informations */
-	while ((i = getopt(argc, argv, "i:n:p:ut")) != -1) {
-		switch (i) {
-		case 'i':
-			DEVICE = optarg;
-			break;
-		case 'n':
-			num_packets = atoi(optarg);
-			break;
-		case 'p':
-			strcpy(define_port2, optarg);
+	for (int i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "-i") == SUCCESS) {
+			DEVICE = argv[i+1];
+			i++;
+		}
+		else if (strcmp(argv[i], "-n") == SUCCESS) {
+			num_packets = atoi(argv[i+1]);
+			i++;
+		}
+		else if (strcmp(argv[i], "-p") == SUCCESS) {
+			strcpy(define_port2, argv[i+1]);
+			i++;
 			port = true;
-			break;
-		case 'u':
+		}
+		else if (strcmp(argv[i], "-u") == SUCCESS || strcmp(*argv[i], "-udp") == SUCCESS) {
 			// -> filter just UDP packets
 			just_udp = true;
-			break;
-		case 't':
+		}
+		else if (strcmp(argv[i], "-t") == SUCCESS || strcmp(*argv[i], "-tcp") == SUCCESS) {
 			// -> filter just TCP packets
 			just_tcp = true;
-			break;
-		default:
+		}
+		else {
 			fprintf(stderr, "Bad arguments");
 			exit(EXIT_ERROR);
 		}
 	}
+
 	char define_port3[10] = "port ";
 
 	/* if port flag is active, set filter on specific port otherwise filter all ports */
@@ -99,6 +101,7 @@ int main(int argc, char** argv) {
 	bpf_u_int32 NET;
 	struct bpf_program compiled_filter;		/* initilize struct for compiled version of filter */
 
+	int i;
 	/* if interface is not defined, show all available interfaces */
 	if (DEVICE == NULL) {
 		pcap_findalldevs(&interfaces, error_buffer);
@@ -145,8 +148,8 @@ int main(int argc, char** argv) {
 }
 
 void print_time() {
-	time_t rawtime;							/* initialize time */
-	struct tm* info;						/* initialize time structure */
+	time_t rawtime;	/* initialize time */
+	struct tm* info;/* initialize time structure */
 	time(&rawtime);							/* return a time */
 	info = localtime(&rawtime);				/* assign time to structure */
 	printf("%02d:%02d:%02d ", info->tm_hour, info->tm_min, info->tm_sec);
