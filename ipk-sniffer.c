@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdbool.h>
@@ -23,8 +21,8 @@ bool just_tcp = false;				/* just tcp packets flag */
 bool just_udp = false;				/* just udp packets flag */
 int num_packets = 1;				/* number of packets -> (it can be changed by argument) */
 
-bool process_tcp_flag = false;			/* process tcp flag */
-bool process_udp_flag = false;			/* process udp flag */
+bool process_tcp_flag = false;			/* proccess tcp flag */
+bool process_udp_flag = false;			/* proccess udp flag */
 
 #define BUFFER_SIZE 1518			/* define buffer_size -> (maximum btes per packet) */
 #define ETHERNET_SIZE 14			/* ethernet header size */
@@ -44,25 +42,26 @@ bool error_set_filter = true;
 
 void define_protocol(u_char* arg, const struct pcap_pkthdr* header, const u_char* packet);
 
-int main(int argc, char** argv) {
-	
-	char* DEVICE = NULL;                       	/* initialize DEVICE */
-	pcap_if_t* interfaces, * temporary;        	/* initialize INTERFACE */
-	char error_buffer[PCAP_ERRBUF_SIZE];       	/* initialize BUFFER ERROR */
-	pcap_t* HANDLE;	                           	/* initialize HANDLE */
+int main(int argc, char** argv) {	
+	char* DEVICE = NULL;                        /* initialize DEVICE */
+	pcap_if_t* interfaces, * temporary;         /* initialize INTERFACE */
+	char error_buffer[PCAP_ERRBUF_SIZE];        /* initialize BUFFER ERROR */
+	pcap_t* HANDLE;                             /* initialize HANDLE */
 	char define_port[] = "ip", define_port2[4];	/* define base port -> (it can be changed by argument) */
-	bool port = false;                         	/* initialize port flag -> (specific port) */
+	bool port = false;                          /* initialize port flag -> (specific port) */
 	
-	if (argv[1] == '--help') {
+	if (strcmp(argv[1], "--help") == SUCCESS) {
 		printf("Packet Sniffer \n");
-		printf("Sniffing UDP a TCP paketov");
+		printf("Sniffing UDP a TCP paketov \n");
 		printf("Pre spustenie programu napiste ./ipk-sniffer \"+ argumenty\" \n");
 		printf("ARGUMENTY: -i [interfaces] -n [number_of_packets (int)] \n");
-		printf("ARGUMENTY: -p [port] -u/-t [search only tcp/udp packets]");
+		printf("ARGUMENTY: -p [port] -u/-t [search only tcp/udp packets] \n");
 		exit(EXIT_SUCCESS);
 	}
+	
+	int i;
+	for (i = 1; i < argc; i++) {
 
-	for (int i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "-i") == SUCCESS) {
 			DEVICE = argv[i+1];
 			i++;
@@ -76,11 +75,11 @@ int main(int argc, char** argv) {
 			i++;
 			port = true;
 		}
-		else if (strcmp(argv[i], "-u") == SUCCESS || strcmp(*argv[i], "-udp") == SUCCESS) {
+		else if (strcmp(argv[i], "-u") == SUCCESS || strcmp(argv[i], "-udp") == SUCCESS) {
 			// -> filter just UDP packets
 			just_udp = true;
 		}
-		else if (strcmp(argv[i], "-t") == SUCCESS || strcmp(*argv[i], "-tcp") == SUCCESS) {
+		else if (strcmp(argv[i], "-t") == SUCCESS || strcmp(argv[i], "-tcp") == SUCCESS) {
 			// -> filter just TCP packets
 			just_tcp = true;
 		}
@@ -101,13 +100,13 @@ int main(int argc, char** argv) {
 	bpf_u_int32 NET;
 	struct bpf_program compiled_filter;		/* initilize struct for compiled version of filter */
 
-	int i;
+	int j;
 	/* if interface is not defined, show all available interfaces */
 	if (DEVICE == NULL) {
 		pcap_findalldevs(&interfaces, error_buffer);
 		printf("Dostupne interfaci \n");
 		for (temporary = interfaces; temporary; temporary = temporary->next) {
-			printf("%d : %s \n", i++, temporary->name);
+			printf("%d : %s \n", j++, temporary->name);
 		}
 		exit(EXIT_SUCCESS);
 	}
@@ -148,11 +147,10 @@ int main(int argc, char** argv) {
 }
 
 void print_time() {
-	
 	time_t rawtime;	/* initialize time */
-	struct tm* info;/* initialize time structure */
-	time(&rawtime);							/* return a time */
-	info = localtime(&rawtime);				/* assign time to structure */
+	struct tm* info;	/* initialize time structure */
+	time(&rawtime);	/* return a time */
+	info = localtime(&rawtime);	/* assign time to structure */
 	printf("%02d:%02d:%02d ", info->tm_hour, info->tm_min, info->tm_sec);
 }
 
@@ -196,7 +194,6 @@ void define_protocol(u_char* arg, const struct pcap_pkthdr* header, const u_char
 }
 
 void print_hexadecimal(const u_char* info, int offset, int len) {
-	
 	int i;
 	int gap;
 	const u_char* ch;
@@ -238,7 +235,6 @@ void print_hexadecimal(const u_char* info, int offset, int len) {
 }
 
 void print_packet(const u_char* info, int len) {
-	
 	int line_len;
 	int current_line_len = len;
 	int offset = 0;
