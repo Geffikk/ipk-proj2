@@ -18,14 +18,13 @@
 #include <netinet/ip_icmp.h>
 #include <netinet/if_ether.h>
 #include <netinet/ip6.h>
-#include <getopt.h>
 
 bool just_tcp = false;				/* just tcp packets flag */
 bool just_udp = false;				/* just udp packets flag */
 int num_packets = 1;				/* number of packets -> (it can be changed by argument) */
 
-bool process_tcp_flag = false;
-bool process_udp_flag = false;
+bool process_tcp_flag = false;		/* process tcp flag */
+bool process_udp_flag = false;		/* process udp flag */
 
 #define BUFFER_SIZE 1518			/* define buffer_size -> (maximum btes per packet) */
 #define ETHERNET_SIZE 14			/* ethernet header size */
